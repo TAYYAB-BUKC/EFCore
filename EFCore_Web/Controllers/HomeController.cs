@@ -1,10 +1,10 @@
-using System.Diagnostics;
-using EFCore_Web.Models;
+using EFCore_Models.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace EFCore_Web.Controllers
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
