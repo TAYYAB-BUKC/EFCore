@@ -1,4 +1,4 @@
-namespace EFCore_Web.Models
+namespace EFCore_Models.Models
 {
     public class ErrorViewModel
     {
