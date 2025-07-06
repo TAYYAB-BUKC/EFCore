@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EFCore_DataAccess\EFCore_DataAccess.csproj" />
+    <ProjectReference Include="..\EFCore_Models\EFCore_Models.csproj" />
+  </ItemGroup>
+
 </Project>
