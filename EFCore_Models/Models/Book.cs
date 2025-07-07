@@ -8,9 +8,11 @@ namespace EFCore_Models.Models
 	{
 		[Key]
 		public int IDBook { get; set; }
+		[Required]
 		public string Title { get; set; }
 		[Column("Book_ISBN")]
 		public string ISBN { get; set; }
+		[Required]
 		public decimal Price { get; set; }
 	}
 }
