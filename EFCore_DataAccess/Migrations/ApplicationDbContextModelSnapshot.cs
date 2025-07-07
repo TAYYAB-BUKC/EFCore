@@ -41,7 +41,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("IDBook");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("EFCore_Models.Models.Genre", b =>
@@ -60,7 +60,7 @@ namespace EFCore_DataAccess.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 #pragma warning restore 612, 618
         }
