@@ -9,6 +9,7 @@ namespace EFCore_Models.Models
 		[Key]
 		public int IDBook { get; set; }
 		[Required]
+		[MaxLength(50)]
 		public string Title { get; set; }
 		[Column("Book_ISBN")]
 		public string ISBN { get; set; }
