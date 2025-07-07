@@ -11,5 +11,10 @@ namespace EFCore_DataAccess.Data
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10, 6);
+		}
 	}
 }
