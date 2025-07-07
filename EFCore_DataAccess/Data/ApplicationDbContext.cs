@@ -9,6 +9,8 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<Genre> Genres { get; set; }
 
+		public DbSet<Author> Authors { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
