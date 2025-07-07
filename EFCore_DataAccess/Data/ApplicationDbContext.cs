@@ -58,6 +58,8 @@ namespace EFCore_DataAccess.Data
 					Price = 40.99m
 				}
 			};
+
+			modelBuilder.Entity<Book>().HasData(bookList);
 		}
 	}
 }
