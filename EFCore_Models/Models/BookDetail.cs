@@ -10,5 +10,6 @@ namespace EFCore_Models.Models
 		public int NumberOfChapters { get; set; }
 		public int NumberOfPages { get; set; }
 		public string Weight { get; set; }
+		public Book Book { get; set; }
 	}
 }
