@@ -17,8 +17,6 @@ namespace EFCore_Models.Models
 		public decimal Price { get; set; }
 		[NotMapped]
 		public string PriceRange { get; set; }
-		[ForeignKey("Details")]	
-		public int BookDetail_Id { get; set; }
 		public BookDetail Details { get; set; }
 	}
 }

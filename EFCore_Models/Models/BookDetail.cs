@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore_Models.Models
 {
@@ -10,6 +11,8 @@ namespace EFCore_Models.Models
 		public int NumberOfChapters { get; set; }
 		public int NumberOfPages { get; set; }
 		public string Weight { get; set; }
+		[ForeignKey("Book")]
+		public int Book_Id { get; set; }
 		public Book Book { get; set; }
 	}
 }
