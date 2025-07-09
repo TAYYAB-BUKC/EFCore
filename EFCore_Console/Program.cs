@@ -50,6 +50,19 @@ using (ApplicationDbContext dbContext = new())
 	Console.WriteLine($"------------------GetBookUsingFind--------------------------------");
 	var bookUsingFind = await GetBookUsingFind(dbContext, 6);
 	Console.WriteLine($"{bookUsingFind?.Title} - {bookUsingFind?.ISBN}");
+
+	Console.WriteLine($"------------------GetBookUsingSingle--------------------------------");
+	var bookUsingSingle = await GetBookUsingSingle(dbContext);
+	Console.WriteLine($"{bookUsingSingle?.Title} - {bookUsingSingle?.ISBN}");
+}
+
+async Task<Book> GetBookUsingSingle(ApplicationDbContext dbContext)
+{
+	// Throw exception if no book found
+	//return await dbContext.Books.SingleAsync(b => b.ISBN == "1234456789");
+
+	// return null if book not found
+	return await dbContext.Books.SingleOrDefaultAsync(b => b.ISBN == "123456789");
 }
 
 async Task<Book> GetBookUsingFind(ApplicationDbContext dbContext, int id)
