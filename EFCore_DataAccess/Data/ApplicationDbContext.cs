@@ -22,6 +22,8 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<Fluent_Book> Fluent_Books { get; set; }
 
+		public DbSet<Fluent_Author> Fluent_Authors { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
@@ -117,6 +119,20 @@ namespace EFCore_DataAccess.Data
 						.Property(bd => bd.NumberOfChapters)
 						.HasColumnName("NoOfChapters")
 						.IsRequired();
+			#endregion
+
+			#region Fluent_Author
+			modelBuilder.Entity<Fluent_Author>()
+						.HasKey(a => a.Author_Id);
+			modelBuilder.Entity<Fluent_Author>()
+						.Property(a => a.FirstName)
+						.HasMaxLength(50)
+						.IsRequired();
+			modelBuilder.Entity<Fluent_Author>()
+						.Property(a => a.LastName)
+						.IsRequired();
+			modelBuilder.Entity<Fluent_Author>()
+						.Ignore(a => a.FullName);
 			#endregion
 		}
 	}
