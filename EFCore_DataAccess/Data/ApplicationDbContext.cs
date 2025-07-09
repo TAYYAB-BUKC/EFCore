@@ -68,6 +68,14 @@ namespace EFCore_DataAccess.Data
 			};
 
 			modelBuilder.Entity<Book>().HasData(bookList);
+
+			var publisherList = new Publisher[] {
+				new Publisher { Publisher_Id = 1, Name = "Pub 1 Jimmy", Location = "Chicago" },
+				new Publisher { Publisher_Id = 2, Name = "Pub 2 John", Location = "New York" },
+				new Publisher { Publisher_Id = 3, Name = "Pub 1 Ben", Location = "Hawaii" },
+			};
+
+			modelBuilder.Entity<Publisher>().HasData(publisherList);
 		}
 	}
 }
