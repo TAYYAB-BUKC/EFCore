@@ -93,6 +93,8 @@ namespace EFCore_DataAccess.Data
 			modelBuilder.Entity<Fluent_Book>()
 						.ToTable("TBL_FluentBooks");
 			modelBuilder.Entity<Fluent_Book>()
+						.HasKey(b => b.IDBook);
+			modelBuilder.Entity<Fluent_Book>()
 						.Property(b => b.Title)
 						.HasMaxLength(50)
 						.IsRequired();
