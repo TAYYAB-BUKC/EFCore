@@ -24,6 +24,8 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<Fluent_Author> Fluent_Authors { get; set; }
 
+		public DbSet<Fluent_Publisher> Fluent_Publishers { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
@@ -133,6 +135,14 @@ namespace EFCore_DataAccess.Data
 						.IsRequired();
 			modelBuilder.Entity<Fluent_Author>()
 						.Ignore(a => a.FullName);
+			#endregion
+
+			#region Fluent_Publisher	
+			modelBuilder.Entity<Fluent_Publisher>()
+						.HasKey(p => p.Publisher_Id);
+			modelBuilder.Entity<Fluent_Publisher>()
+						.Property(p => p.Name)
+						.IsRequired();
 			#endregion
 		}
 	}
