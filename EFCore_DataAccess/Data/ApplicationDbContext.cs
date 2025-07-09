@@ -121,6 +121,10 @@ namespace EFCore_DataAccess.Data
 						.Property(bd => bd.NumberOfChapters)
 						.HasColumnName("NoOfChapters")
 						.IsRequired();
+			modelBuilder.Entity<Fluent_BookDetail>()
+						.HasOne(bd => bd.Book)
+						.WithOne(b => b.Details)
+						.HasForeignKey<Fluent_BookDetail>(bd => bd.Book_Id);
 			#endregion
 
 			#region Fluent_Author
