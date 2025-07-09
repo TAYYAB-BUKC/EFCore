@@ -46,6 +46,16 @@ using (ApplicationDbContext dbContext = new())
 
 	var bookByTitle = await GetBookByTitle(dbContext, "New EF Core Book");
 	Console.WriteLine($"{bookByTitle.Title} - {bookByTitle.ISBN}");
+
+	Console.WriteLine($"------------------GetBookUsingFind--------------------------------");
+	var bookUsingFind = await GetBookUsingFind(dbContext, 6);
+	Console.WriteLine($"{bookUsingFind?.Title} - {bookUsingFind?.ISBN}");
+}
+
+async Task<Book> GetBookUsingFind(ApplicationDbContext dbContext, int id)
+{
+	// Only works for primary key column and return null if not found
+	return await dbContext.Books.FindAsync(id);
 }
 
 async Task<Book> GetBookByTitle(ApplicationDbContext dbContext, string title)
