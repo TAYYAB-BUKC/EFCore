@@ -43,6 +43,14 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	var bookByTitle = await GetBookByTitle(dbContext, "New EF Core Book");
+	Console.WriteLine($"{bookByTitle.Title} - {bookByTitle.ISBN}");
+}
+
+async Task<Book> GetBookByTitle(ApplicationDbContext dbContext, string title)
+{
+	return await dbContext.Books.Where(b => b.Title == title).FirstOrDefaultAsync();
 }
 
 async Task<List<Book>> GetBooksByPublisher(ApplicationDbContext dbContext)
