@@ -94,7 +94,8 @@ namespace EFCore_DataAccess.Data
 						.HasKey(bd => bd.BookDetail_Id);
 			modelBuilder.Entity<Fluent_BookDetail>()
 						.Property(bd => bd.NumberOfChapters)
-						.HasColumnName("NoOfChapters");
+						.HasColumnName("NoOfChapters")
+						.IsRequired();
 			#endregion
 		}
 	}
