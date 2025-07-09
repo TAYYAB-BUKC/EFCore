@@ -32,11 +32,22 @@ using (ApplicationDbContext dbContext = new())
 	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
 	//}
 
-	var book = await GetFirstBook(dbContext);
-	Console.WriteLine($"{book.Title} - {book.ISBN}");
+	//var book = await GetFirstBook(dbContext);
+	//Console.WriteLine($"{book.Title} - {book.ISBN}");
 
-	var fluentBook = await GetFirstFluentBook(dbContext);
-	Console.WriteLine($"{fluentBook?.Title} - {fluentBook?.ISBN}");
+	//var fluentBook = await GetFirstFluentBook(dbContext);
+	//Console.WriteLine($"{fluentBook?.Title} - {fluentBook?.ISBN}");
+
+	var books = await GetBooksByPublisher(dbContext);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> GetBooksByPublisher(ApplicationDbContext dbContext)
+{
+	return await dbContext.Books.Where(b => b.Publisher_Id == 3 && b.Price >= 20).ToListAsync();
 }
 
 async Task<Book> GetFirstBook(ApplicationDbContext dbContext)
