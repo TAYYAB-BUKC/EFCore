@@ -17,6 +17,9 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<BookDetail> BookDetails { get; set; }
 
+		// Rename table to Fluent_BookDetails
+		public DbSet<Fluent_BookDetail> F_BookDetail { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
@@ -83,6 +86,14 @@ namespace EFCore_DataAccess.Data
 			modelBuilder.Entity<Publisher>().HasData(publisherList);
 
 			modelBuilder.Entity<BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
+
+			#region Fluent_BookDetail
+			modelBuilder.Entity<Fluent_BookDetail>()
+						.ToTable("Fluent_BookDetails");
+			modelBuilder.Entity<Fluent_BookDetail>()
+						.Property(bd => bd.NumberOfChapters)
+						.HasColumnName("NoOfChapters");
+			#endregion
 		}
 	}
 }
