@@ -110,6 +110,10 @@ namespace EFCore_DataAccess.Data
 						.IsRequired();
 			modelBuilder.Entity<Fluent_Book>()
 						.Ignore(b => b.PriceRange);
+			modelBuilder.Entity<Fluent_Book>()
+						.HasOne(b => b.Publisher)
+						.WithMany(p => p.Books)
+						.HasForeignKey(b => b.Publisher_Id);
 			#endregion
 
 			#region Fluent_BookDetail

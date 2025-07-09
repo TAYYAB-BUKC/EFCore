@@ -9,5 +9,8 @@
 		public string PriceRange { get; set; }
 
 		public Fluent_BookDetail Details { get; set; }
+
+		public int Publisher_Id { get; set; }
+		public Fluent_Publisher Publisher { get; set; }
 	}
 }
