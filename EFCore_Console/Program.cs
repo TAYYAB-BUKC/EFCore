@@ -16,21 +16,45 @@ using (ApplicationDbContext dbContext = new())
 		await dbContext.Database.MigrateAsync();
 	}
 
-	var books = await GetAllBooks(dbContext);
-	foreach (var book in books)
-	{
-		Console.WriteLine($"{book.Title} - {book.ISBN}");
-	}
+	//var books = await GetAllBooks(dbContext);
+	//foreach (var book in books)
+	//{
+	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
+	//}
 
-	Console.WriteLine("Creating a book");
+	//Console.WriteLine("Creating a book");
 
-	await AddBook(dbContext);
+	//await AddBook(dbContext);
 
-	books = await GetAllBooks(dbContext);
-	foreach (var book in books)
-	{
-		Console.WriteLine($"{book.Title} - {book.ISBN}");
-	}
+	//books = await GetAllBooks(dbContext);
+	//foreach (var book in books)
+	//{
+	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
+	//}
+
+	var book = await GetFirstBook(dbContext);
+	Console.WriteLine($"{book.Title} - {book.ISBN}");
+
+	var fluentBook = await GetFirstFluentBook(dbContext);
+	Console.WriteLine($"{fluentBook?.Title} - {fluentBook?.ISBN}");
+}
+
+async Task<Book> GetFirstBook(ApplicationDbContext dbContext)
+{
+	// Throws error if no book is found
+	//return await dbContext.Books.FirstAsync();
+
+	// Not throws error if no book is found
+	return await dbContext.Books.FirstOrDefaultAsync();
+}
+
+async Task<Fluent_Book> GetFirstFluentBook(ApplicationDbContext dbContext)
+{
+	// Throws error if no book is found
+	//return await dbContext.Fluent_Books.FirstAsync();
+
+	// Not throws error if no book is found
+	return await dbContext.Fluent_Books.FirstOrDefaultAsync();
 }
 
 async Task AddBook(ApplicationDbContext dbContext)
