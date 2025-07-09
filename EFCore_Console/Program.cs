@@ -16,29 +16,29 @@ using (ApplicationDbContext dbContext = new())
 		await dbContext.Database.MigrateAsync();
 	}
 
-	//var books = await GetAllBooks(dbContext);
-	//foreach (var book in books)
-	//{
-	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
-	//}
+	var books = await GetAllBooks(dbContext);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
 
-	//Console.WriteLine("Creating a book");
+	Console.WriteLine("Creating a book");
 
-	//await AddBook(dbContext);
+	await AddBook(dbContext);
 
-	//books = await GetAllBooks(dbContext);
-	//foreach (var book in books)
-	//{
-	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
-	//}
+	books = await GetAllBooks(dbContext);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
 
-	//var book = await GetFirstBook(dbContext);
-	//Console.WriteLine($"{book.Title} - {book.ISBN}");
+	var firstBook = await GetFirstBook(dbContext);
+	Console.WriteLine($"{firstBook.Title} - {firstBook.ISBN}");
 
-	//var fluentBook = await GetFirstFluentBook(dbContext);
-	//Console.WriteLine($"{fluentBook?.Title} - {fluentBook?.ISBN}");
+	var fluentBook = await GetFirstFluentBook(dbContext);
+	Console.WriteLine($"{fluentBook?.Title} - {fluentBook?.ISBN}");
 
-	var books = await GetBooksByPublisher(dbContext);
+	books = await GetBooksByPublisher(dbContext);
 	foreach (var book in books)
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
