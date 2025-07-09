@@ -17,6 +17,8 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<BookDetail> BookDetails { get; set; }
 
+		public DbSet<BookAuthorMapping> BookAuthorMappings { get; set; }
+
 		// Rename table to Fluent_BookDetails
 		public DbSet<Fluent_BookDetail> F_BookDetail { get; set; }
 
@@ -25,6 +27,8 @@ namespace EFCore_DataAccess.Data
 		public DbSet<Fluent_Author> Fluent_Authors { get; set; }
 
 		public DbSet<Fluent_Publisher> Fluent_Publishers { get; set; }
+
+		public DbSet<Fluent_BookAuthorMapping> Fluent_BookAuthorMappings { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
