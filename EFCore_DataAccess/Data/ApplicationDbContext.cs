@@ -32,14 +32,16 @@ namespace EFCore_DataAccess.Data
 					IDBook = 1,
 					ISBN = "123456",
 					Title = "Spider Without Duty",
-					Price = 10.99m
+					Price = 10.99m,
+					Publisher_Id = 1
 				},
 				new Book
 				{
 					IDBook = 2,
 					ISBN = "123456456",
 					Title = "Fortune Of Time",
-					Price = 11.99m
+					Price = 11.99m,
+					Publisher_Id = 2
 				});
 
 			var bookList = new Book[]
@@ -49,21 +51,24 @@ namespace EFCore_DataAccess.Data
 					IDBook = 3,
 					ISBN = "123456789",
 					Title = "Fake Sunday",
-					Price = 20.99m
+					Price = 20.99m,
+					Publisher_Id = 2
 				},
 				new Book
 				{
 					IDBook = 4,
 					ISBN = "0123456789",
 					Title = "Cookie Jar",
-					Price = 25.99m
+					Price = 25.99m,
+					Publisher_Id = 3
 				},
 				new Book
 				{
 					IDBook = 5,
 					ISBN = "1234567890",
 					Title = "Cloudy Forest",
-					Price = 40.99m
+					Price = 40.99m,
+					Publisher_Id = 3
 				}
 			};
 
