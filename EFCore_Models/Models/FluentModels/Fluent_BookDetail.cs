@@ -1,13 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EFCore_Models.Models
+﻿namespace EFCore_Models.Models
 {
 	public class Fluent_BookDetail
 	{
-		[Key]
 		public int BookDetail_Id { get; set; }
-		[Required]
 		public int NumberOfChapters { get; set; }
 		public int NumberOfPages { get; set; }
 		public string Weight { get; set; }
