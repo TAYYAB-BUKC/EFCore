@@ -54,6 +54,18 @@ using (ApplicationDbContext dbContext = new())
 	Console.WriteLine($"------------------GetBookUsingSingle--------------------------------");
 	var bookUsingSingle = await GetBookUsingSingle(dbContext);
 	Console.WriteLine($"{bookUsingSingle?.Title} - {bookUsingSingle?.ISBN}");
+
+	Console.WriteLine($"------------------GetBooksUsingLike--------------------------------");
+	books = await GetBooksUsingLike(dbContext);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> GetBooksUsingLike(ApplicationDbContext dbContext)
+{
+	return await dbContext.Books.Where(b => b.ISBN.Contains("12")).ToListAsync();
 }
 
 async Task<Book> GetBookUsingSingle(ApplicationDbContext dbContext)
