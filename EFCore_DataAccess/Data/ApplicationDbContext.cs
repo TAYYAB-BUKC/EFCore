@@ -91,6 +91,8 @@ namespace EFCore_DataAccess.Data
 			modelBuilder.Entity<Fluent_BookDetail>()
 						.ToTable("Fluent_BookDetails");
 			modelBuilder.Entity<Fluent_BookDetail>()
+						.HasKey(bd => bd.BookDetail_Id);
+			modelBuilder.Entity<Fluent_BookDetail>()
 						.Property(bd => bd.NumberOfChapters)
 						.HasColumnName("NoOfChapters");
 			#endregion
