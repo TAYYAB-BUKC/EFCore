@@ -18,5 +18,9 @@ namespace EFCore_Models.Models
 		[NotMapped]
 		public string PriceRange { get; set; }
 		public BookDetail Details { get; set; }
+
+		[ForeignKey(nameof(Publisher))]
+		public int Publisher_Id { get; set; }
+		public Publisher Publisher { get; set; }
 	}
 }
