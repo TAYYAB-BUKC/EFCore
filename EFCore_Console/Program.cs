@@ -50,7 +50,7 @@ using (ApplicationDbContext dbContext = new())
 
 async Task<Book> GetBookByTitle(ApplicationDbContext dbContext, string title)
 {
-	return await dbContext.Books.Where(b => b.Title == title).FirstOrDefaultAsync();
+	return await dbContext.Books.FirstOrDefaultAsync(b => b.Title == title);
 }
 
 async Task<List<Book>> GetBooksByPublisher(ApplicationDbContext dbContext)
