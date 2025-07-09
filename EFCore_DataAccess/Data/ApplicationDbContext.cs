@@ -1,4 +1,5 @@
-﻿using EFCore_Models.Models;
+﻿using EFCore_DataAccess.FluentConfiguration;
+using EFCore_Models.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore_DataAccess.Data
@@ -97,78 +98,11 @@ namespace EFCore_DataAccess.Data
 
 			modelBuilder.Entity<BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
 
-			#region Fluent_Book
-			modelBuilder.Entity<Fluent_Book>()
-						.ToTable("TBL_FluentBooks");
-			modelBuilder.Entity<Fluent_Book>()
-						.HasKey(b => b.IDBook);
-			modelBuilder.Entity<Fluent_Book>()
-						.Property(b => b.Title)
-						.HasMaxLength(50)
-						.IsRequired();
-			modelBuilder.Entity<Fluent_Book>()
-						.Property(b => b.ISBN)
-						.HasColumnName("Fluent_Book_ISBN");
-			modelBuilder.Entity<Fluent_Book>()
-						.Property(b => b.Price)
-						.IsRequired();
-			modelBuilder.Entity<Fluent_Book>()
-						.Ignore(b => b.PriceRange);
-			modelBuilder.Entity<Fluent_Book>()
-						.HasOne(b => b.Publisher)
-						.WithMany(p => p.Books)
-						.HasForeignKey(b => b.Publisher_Id);
-			#endregion
-
-			#region Fluent_BookDetail
-			modelBuilder.Entity<Fluent_BookDetail>()
-						.ToTable("Fluent_BookDetails");
-			modelBuilder.Entity<Fluent_BookDetail>()
-						.HasKey(bd => bd.BookDetail_Id);
-			modelBuilder.Entity<Fluent_BookDetail>()
-						.Property(bd => bd.NumberOfChapters)
-						.HasColumnName("NoOfChapters")
-						.IsRequired();
-			modelBuilder.Entity<Fluent_BookDetail>()
-						.HasOne(bd => bd.Book)
-						.WithOne(b => b.Details)
-						.HasForeignKey<Fluent_BookDetail>(bd => bd.Book_Id);
-			#endregion
-
-			#region Fluent_Author
-			modelBuilder.Entity<Fluent_Author>()
-						.HasKey(a => a.Author_Id);
-			modelBuilder.Entity<Fluent_Author>()
-						.Property(a => a.FirstName)
-						.HasMaxLength(50)
-						.IsRequired();
-			modelBuilder.Entity<Fluent_Author>()
-						.Property(a => a.LastName)
-						.IsRequired();
-			modelBuilder.Entity<Fluent_Author>()
-						.Ignore(a => a.FullName);
-			#endregion
-
-			#region Fluent_Publisher	
-			modelBuilder.Entity<Fluent_Publisher>()
-						.HasKey(p => p.Publisher_Id);
-			modelBuilder.Entity<Fluent_Publisher>()
-						.Property(p => p.Name)
-						.IsRequired();
-			#endregion
-
-			#region Fluent_BookAuthorMapping
-			modelBuilder.Entity<Fluent_BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
-			modelBuilder.Entity<Fluent_BookAuthorMapping>()
-						.HasOne(ba => ba.Author)
-						.WithMany(ba => ba.AuthorBooks)
-						.HasForeignKey(ba => ba.Author_Id);
-			modelBuilder.Entity<Fluent_BookAuthorMapping>()
-						.HasOne(b => b.Book)
-						.WithMany(b => b.BookAuthors)
-						.HasForeignKey(b => b.Book_Id);
-			#endregion
-
+			modelBuilder.ApplyConfiguration(new FluentAuthorConfiguration());
+			modelBuilder.ApplyConfiguration(new FluentBookConfiguration());
+			modelBuilder.ApplyConfiguration(new FluentBookDetailConfiguration());
+			modelBuilder.ApplyConfiguration(new FluentPublisherConfiguration());
+			modelBuilder.ApplyConfiguration(new FluentBookAuthorMappingConfiguration());
 		}
 	}
 }
