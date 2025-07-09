@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EFCore_DataAccess.Data;
+using EFCore_DataAccess.Migrations;
 using EFCore_Models.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,30 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine("Creating a book");
+
+	await AddBook(dbContext);
+
+	books = await GetAllBooks(dbContext);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task AddBook(ApplicationDbContext dbContext)
+{
+	Book newBook = new()
+	{
+		Title = "New EF Core Book",
+		ISBN = "1234560000",
+		Price = 50.99m,
+		Publisher_Id = 2
+	};
+
+	await dbContext.AddAsync(newBook);
+	await dbContext.SaveChangesAsync();
 }
 
 Console.ReadKey();
