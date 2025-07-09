@@ -22,15 +22,15 @@ using (ApplicationDbContext dbContext = new())
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
 
-	Console.WriteLine("Creating a book");
+	//Console.WriteLine("Creating a book");
 
-	await AddBook(dbContext);
+	//await AddBook(dbContext);
 
-	books = await GetAllBooks(dbContext);
-	foreach (var book in books)
-	{
-		Console.WriteLine($"{book.Title} - {book.ISBN}");
-	}
+	//books = await GetAllBooks(dbContext);
+	//foreach (var book in books)
+	//{
+	//	Console.WriteLine($"{book.Title} - {book.ISBN}");
+	//}
 
 	var firstBook = await GetFirstBook(dbContext);
 	Console.WriteLine($"{firstBook.Title} - {firstBook.ISBN}");
