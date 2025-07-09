@@ -17,6 +17,6 @@ namespace EFCore_Models.Models
 		[NotMapped]
 		public string FullName => $"{FirstName} {LastName}";
 
-		public List<Book> Books { get; set; }
+		public List<BookAuthorMapping> AuthorBooks { get; set; }
 	}
 }

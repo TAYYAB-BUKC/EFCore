@@ -81,6 +81,8 @@ namespace EFCore_DataAccess.Data
 			};
 
 			modelBuilder.Entity<Publisher>().HasData(publisherList);
+
+			modelBuilder.Entity<BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
 		}
 	}
 }

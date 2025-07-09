@@ -23,6 +23,6 @@ namespace EFCore_Models.Models
 		public int Publisher_Id { get; set; }
 		public Publisher Publisher { get; set; }
 
-		public List<Author> Authors { get; set; }
+		public List<BookAuthorMapping> BookAuthors { get; set; }
 	}
 }
