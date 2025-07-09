@@ -61,6 +61,9 @@ async Task<Book> GetBookUsingSingle(ApplicationDbContext dbContext)
 	// Throw exception if no book found
 	//return await dbContext.Books.SingleAsync(b => b.ISBN == "1234456789");
 
+	// Throws exception if two book found
+	//return await dbContext.Books.SingleOrDefaultAsync(b => b.Publisher_Id == 3);
+
 	// return null if book not found
 	return await dbContext.Books.SingleOrDefaultAsync(b => b.ISBN == "123456789");
 }
