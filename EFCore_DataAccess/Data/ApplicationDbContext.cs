@@ -20,6 +20,8 @@ namespace EFCore_DataAccess.Data
 		// Rename table to Fluent_BookDetails
 		public DbSet<Fluent_BookDetail> F_BookDetail { get; set; }
 
+		public DbSet<Fluent_Book> Fluent_Books { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
@@ -86,6 +88,23 @@ namespace EFCore_DataAccess.Data
 			modelBuilder.Entity<Publisher>().HasData(publisherList);
 
 			modelBuilder.Entity<BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
+
+			#region Fluent_Book
+			modelBuilder.Entity<Fluent_Book>()
+						.ToTable("TBL_FluentBooks");
+			modelBuilder.Entity<Fluent_Book>()
+						.Property(b => b.Title)
+						.HasMaxLength(50)
+						.IsRequired();
+			modelBuilder.Entity<Fluent_Book>()
+						.Property(b => b.ISBN)
+						.HasColumnName("Fluent_Book_ISBN");
+			modelBuilder.Entity<Fluent_Book>()
+						.Property(b => b.Price)
+						.IsRequired();
+			modelBuilder.Entity<Fluent_Book>()
+						.Ignore(b => b.PriceRange);
+			#endregion
 
 			#region Fluent_BookDetail
 			modelBuilder.Entity<Fluent_BookDetail>()
