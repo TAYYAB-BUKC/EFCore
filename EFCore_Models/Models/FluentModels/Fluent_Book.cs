@@ -17,12 +17,5 @@ namespace EFCore_Models.Models
 		public decimal Price { get; set; }
 		[NotMapped]
 		public string PriceRange { get; set; }
-		public Fluent_BookDetail Details { get; set; }
-
-		[ForeignKey(nameof(Publisher))]
-		public int Publisher_Id { get; set; }
-		public Fluent_Publisher Publisher { get; set; }
-
-		public List<Fluent_BookAuthorMapping> BookAuthors { get; set; }
 	}
 }
