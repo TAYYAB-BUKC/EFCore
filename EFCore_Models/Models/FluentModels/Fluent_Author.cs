@@ -8,5 +8,7 @@
 		public DateTime BirthDate { get; set; }
 		public string Location { get; set; }
 		public string FullName => $"{FirstName} {LastName}";
+
+		public List<Fluent_Book> Books { get; set; }
 	}
 }
