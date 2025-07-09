@@ -1,6 +1,9 @@
 ﻿using EFCore_DataAccess.FluentConfiguration;
 using EFCore_Models.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
+using Microsoft.Extensions.Logging;
+using System.Threading.Channels;
 
 namespace EFCore_DataAccess.Data
 {
@@ -33,7 +36,8 @@ namespace EFCore_DataAccess.Data
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;");
+			optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;")
+						  .LogTo(Console.WriteLine, new []{ DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
