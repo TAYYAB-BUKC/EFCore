@@ -65,7 +65,11 @@ using (ApplicationDbContext dbContext = new())
 
 async Task<List<Book>> GetBooksUsingLike(ApplicationDbContext dbContext)
 {
-	return await dbContext.Books.Where(b => b.ISBN.Contains("12")).ToListAsync();
+	// it uses this pattern in LIKE '%a%'
+	//return await dbContext.Books.Where(b => b.ISBN.Contains("12")).ToListAsync();
+
+	// it uses this pattern in LIKE 'a%'
+	return await dbContext.Books.Where(b => EF.Functions.Like(b.ISBN, "12%")).ToListAsync();
 }
 
 async Task<Book> GetBookUsingSingle(ApplicationDbContext dbContext)
