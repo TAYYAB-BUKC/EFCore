@@ -13,6 +13,6 @@
 		public int Publisher_Id { get; set; }
 		public Fluent_Publisher Publisher { get; set; }
 
-		public List<Fluent_Author> Authors { get; set; }
+		public List<Fluent_BookAuthorMapping> BookAuthors { get; set; }
 	}
 }

@@ -9,6 +9,6 @@
 		public string Location { get; set; }
 		public string FullName => $"{FirstName} {LastName}";
 
-		public List<Fluent_Book> Books { get; set; }
+		public List<Fluent_BookAuthorMapping> AuthorBooks { get; set; }
 	}
 }

@@ -152,6 +152,19 @@ namespace EFCore_DataAccess.Data
 						.Property(p => p.Name)
 						.IsRequired();
 			#endregion
+
+			#region Fluent_BookAuthorMapping
+			modelBuilder.Entity<Fluent_BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
+			modelBuilder.Entity<Fluent_BookAuthorMapping>()
+						.HasOne(ba => ba.Author)
+						.WithMany(ba => ba.AuthorBooks)
+						.HasForeignKey(ba => ba.Author_Id);
+			modelBuilder.Entity<Fluent_BookAuthorMapping>()
+						.HasOne(b => b.Book)
+						.WithMany(b => b.BookAuthors)
+						.HasForeignKey(b => b.Book_Id);
+			#endregion
+
 		}
 	}
 }
