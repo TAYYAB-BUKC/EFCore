@@ -35,5 +35,27 @@ namespace EFCore_Web.Controllers
 
 			return View(category);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Upsert(SubCategory subCategory)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(subCategory);
+			}
+
+			if (subCategory.SubCategory_Id > 0)
+			{
+				await _applicationDbContext.SubCategories.AddAsync(subCategory);
+			}
+			else
+			{
+				_applicationDbContext.Update(subCategory);
+			}
+
+			await _applicationDbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
