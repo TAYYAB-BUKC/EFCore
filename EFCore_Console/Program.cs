@@ -104,6 +104,21 @@ using (ApplicationDbContext dbContext = new())
 	Console.WriteLine($"------------------DeleteBookById--------------------------------");
 	var deletedBook = await DeleteBookById(dbContext, 6);
 	Console.WriteLine($"{deletedBook.Title} - {deletedBook.ISBN}");
+
+	Console.WriteLine($"------------------DeleteBooksByTitle--------------------------------");
+	var deletedBooksByTitle = await DeleteBooksByTitle(dbContext, "New EF Core Book");
+	foreach (var book in deletedBooksByTitle)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> DeleteBooksByTitle(ApplicationDbContext dbContext, string title)
+{
+	var books = await dbContext.Books.Where(b => b.Title == title).ToListAsync();
+	dbContext.RemoveRange(books);
+	await dbContext.SaveChangesAsync();
+	return books;
 }
 
 async Task<Book> DeleteBookById(ApplicationDbContext dbContext, int id)
