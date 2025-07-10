@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 //Console.WriteLine("Hello, World!");
 
-using (ApplicationDbContext dbContext = new())
+using (ApplicationDbContext dbContext = null)
 {
 	// Create database if doesnot exist
 	await dbContext.Database.EnsureCreatedAsync();
