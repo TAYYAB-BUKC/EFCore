@@ -68,6 +68,18 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine($"------------------GetBooksUsingMultipleOrderBy--------------------------------");
+	books = await GetBooksUsingMultipleOrderBy(dbContext);
+	foreach (var book in booksUsingDeferredExecution)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> GetBooksUsingMultipleOrderBy(ApplicationDbContext dbContext)
+{
+	return await dbContext.Books.OrderBy(b => b.Title).ThenByDescending(b => b.ISBN).ToListAsync();
 }
 
 DbSet<Book> GetBooksUsingDeferredExecution(ApplicationDbContext dbContext)
