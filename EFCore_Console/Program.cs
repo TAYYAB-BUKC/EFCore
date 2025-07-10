@@ -92,7 +92,7 @@ using (ApplicationDbContext dbContext = new())
 
 	Console.WriteLine($"------------------UpdateBook--------------------------------");
 	var updatedBook = await UpdateBook(dbContext);
-	Console.WriteLine($"{updatedBook.Title} - {updatedBook.ISBN}");
+	Console.WriteLine($"{updatedBook?.Title} - {updatedBook?.ISBN}");
 
 	Console.WriteLine($"------------------UpdateMultipleBooks--------------------------------");
 	books = await UpdateMultipleBooks(dbContext, 1);
@@ -102,7 +102,7 @@ using (ApplicationDbContext dbContext = new())
 	}
 
 	Console.WriteLine($"------------------DeleteBookById--------------------------------");
-	var deletedBook = await DeleteBookById(dbContext, 6);
+	var deletedBook = await DeleteBookById(dbContext, 8);
 	Console.WriteLine($"{deletedBook.Title} - {deletedBook.ISBN}");
 
 	Console.WriteLine($"------------------DeleteBooksByTitle--------------------------------");
@@ -143,8 +143,11 @@ async Task<List<Book>> UpdateMultipleBooks(ApplicationDbContext dbContext, int p
 
 async Task<Book> UpdateBook(ApplicationDbContext dbContext)
 {
-	var book = await dbContext.Books.FindAsync(6);
-	book.ISBN = "Updated ISBN By EF Core";
+	var book = await dbContext.Books.FindAsync(7);
+	if(book is not null)
+	{
+		book.ISBN = "Updated ISBN By EF Core";
+	}
 	await dbContext.SaveChangesAsync();
 	return book;
 }
