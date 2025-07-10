@@ -71,10 +71,29 @@ using (ApplicationDbContext dbContext = new())
 
 	Console.WriteLine($"------------------GetBooksUsingMultipleOrderBy--------------------------------");
 	books = await GetBooksUsingMultipleOrderBy(dbContext);
-	foreach (var book in booksUsingDeferredExecution)
+	foreach (var book in books)
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine($"------------------GetBooksByPagination--------------------------------");
+	books = await GetBooksByPagination(dbContext, 0, 2);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+
+	Console.WriteLine($"------------------GetBooksByPagination--------------------------------");
+	books = await GetBooksByPagination(dbContext, 2, 4);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> GetBooksByPagination(ApplicationDbContext dbContext, int skip, int take)
+{
+	return await dbContext.Books.Skip(skip).Take(take).ToListAsync();
 }
 
 async Task<List<Book>> GetBooksUsingMultipleOrderBy(ApplicationDbContext dbContext)
