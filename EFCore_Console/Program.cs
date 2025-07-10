@@ -61,6 +61,18 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine($"------------------GetBooksUsingDeferredExecution--------------------------------");
+	var booksUsingDeferredExecution = GetBooksUsingDeferredExecution(dbContext);
+	foreach (var book in booksUsingDeferredExecution)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+DbSet<Book> GetBooksUsingDeferredExecution(ApplicationDbContext dbContext)
+{
+	return dbContext.Books;
 }
 
 async Task<List<Book>> GetBooksUsingLike(ApplicationDbContext dbContext)
