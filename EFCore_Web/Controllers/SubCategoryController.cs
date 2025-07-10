@@ -105,5 +105,21 @@ namespace EFCore_Web.Controllers
 			await _applicationDbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
+
+		public async Task<IActionResult> RemoveMultiple2()
+		{
+			var subCategories = await _applicationDbContext.SubCategories.OrderByDescending(sc => sc.SubCategory_Id).Take(2).ToListAsync();
+			_applicationDbContext.SubCategories.RemoveRange(subCategories);
+			await _applicationDbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
+		public async Task<IActionResult> RemoveMultiple5()
+		{
+			var subCategories = await _applicationDbContext.SubCategories.OrderByDescending(sc => sc.SubCategory_Id).Take(5).ToListAsync();
+			_applicationDbContext.SubCategories.RemoveRange(subCategories);
+			await _applicationDbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
