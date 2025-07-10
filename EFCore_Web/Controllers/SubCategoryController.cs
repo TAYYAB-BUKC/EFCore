@@ -75,5 +75,20 @@ namespace EFCore_Web.Controllers
 			await _applicationDbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
+
+		public async Task<IActionResult> CreateMultiple2()
+		{
+			List<SubCategory> subCategories = new();
+			for (int i = 0; i < 2; i++)
+			{
+				subCategories.Add(new SubCategory()
+				{
+					Name = Guid.NewGuid().ToString("N")
+				});
+			}
+			await _applicationDbContext.SubCategories.AddRangeAsync(subCategories);
+			await _applicationDbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
