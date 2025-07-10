@@ -89,6 +89,18 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine($"------------------UpdateBook--------------------------------");
+	var updatedBook = await UpdateBook(dbContext);
+	Console.WriteLine($"{updatedBook.Title} - {updatedBook.ISBN}");
+}
+
+async Task<Book> UpdateBook(ApplicationDbContext dbContext)
+{
+	var book = await dbContext.Books.FindAsync(6);
+	book.ISBN = "Updated ISBN By EF Core";
+	await dbContext.SaveChangesAsync();
+	return book;
 }
 
 async Task<List<Book>> GetBooksByPagination(ApplicationDbContext dbContext, int skip, int take)
