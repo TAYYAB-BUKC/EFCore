@@ -93,6 +93,25 @@ using (ApplicationDbContext dbContext = new())
 	Console.WriteLine($"------------------UpdateBook--------------------------------");
 	var updatedBook = await UpdateBook(dbContext);
 	Console.WriteLine($"{updatedBook.Title} - {updatedBook.ISBN}");
+
+	Console.WriteLine($"------------------UpdateMultipleBooks--------------------------------");
+	books = await UpdateMultipleBooks(dbContext, 1);
+	foreach (var book in books)
+	{
+		Console.WriteLine($"{book.Title} - {book.ISBN}");
+	}
+}
+
+async Task<List<Book>> UpdateMultipleBooks(ApplicationDbContext dbContext, int publisherID)
+{
+	var books = await dbContext.Books.Where(b => b.Publisher_Id == publisherID).ToListAsync();
+	foreach (var book in books)
+	{
+		book.Price = 99.99m;
+	}
+	
+	await dbContext.SaveChangesAsync();
+	return books;
 }
 
 async Task<Book> UpdateBook(ApplicationDbContext dbContext)
