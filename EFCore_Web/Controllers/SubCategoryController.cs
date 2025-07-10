@@ -57,5 +57,23 @@ namespace EFCore_Web.Controllers
 			await _applicationDbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
+
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (id <= 0)
+			{
+				return BadRequest();
+			}
+
+			var subCategory = await _applicationDbContext.SubCategories.FindAsync(id);
+			if(subCategory is null)
+			{
+				return NotFound();
+			}
+
+			_applicationDbContext.Remove(subCategory);
+			await _applicationDbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
