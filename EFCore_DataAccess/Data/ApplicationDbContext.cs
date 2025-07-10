@@ -103,6 +103,14 @@ namespace EFCore_DataAccess.Data
 
 			modelBuilder.Entity<BookAuthorMapping>().HasKey(b => new { b.Author_Id, b.Book_Id });
 
+			var subCategoryList = new SubCategory[] {
+				new SubCategory { SubCategory_Id = 1, Name = "Cat 1" },
+				new SubCategory { SubCategory_Id = 2, Name = "Cat 2" },
+				new SubCategory { SubCategory_Id = 3, Name = "Cat 3" },
+			};
+
+			modelBuilder.Entity<SubCategory>().HasData(subCategoryList);
+
 			modelBuilder.ApplyConfiguration(new FluentAuthorConfiguration());
 			modelBuilder.ApplyConfiguration(new FluentBookConfiguration());
 			modelBuilder.ApplyConfiguration(new FluentBookDetailConfiguration());
