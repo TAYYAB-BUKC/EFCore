@@ -100,6 +100,18 @@ using (ApplicationDbContext dbContext = new())
 	{
 		Console.WriteLine($"{book.Title} - {book.ISBN}");
 	}
+
+	Console.WriteLine($"------------------DeleteBookById--------------------------------");
+	var deletedBook = await DeleteBookById(dbContext, 6);
+	Console.WriteLine($"{deletedBook.Title} - {deletedBook.ISBN}");
+}
+
+async Task<Book> DeleteBookById(ApplicationDbContext dbContext, int id)
+{
+	var book = await dbContext.Books.FindAsync(id);
+	dbContext.Remove(book);
+	await dbContext.SaveChangesAsync();
+	return book;
 }
 
 async Task<List<Book>> UpdateMultipleBooks(ApplicationDbContext dbContext, int publisherID)
