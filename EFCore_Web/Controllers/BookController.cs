@@ -17,6 +17,10 @@ namespace EFCore_Web.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var list = await _dbContext.Books.ToListAsync();
+			foreach (var listItem in list)
+			{
+				listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
+			}
 			return View(list);
 		}
 
