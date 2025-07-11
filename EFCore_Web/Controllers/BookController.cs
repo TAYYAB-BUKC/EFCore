@@ -51,5 +51,27 @@ namespace EFCore_Web.Controllers
 			}).ToListAsync();
 			return View(viewModel);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Upsert(BookViewModel bookViewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(bookViewModel);
+			}
+
+			if (bookViewModel.Book.IDBook > 0)
+			{
+				_dbContext.Books.Update(bookViewModel.Book);
+			}
+			else
+			{
+				await _dbContext.Books.AddAsync(bookViewModel.Book);
+			}
+
+			await _dbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
