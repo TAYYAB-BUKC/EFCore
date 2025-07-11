@@ -1,5 +1,4 @@
 ﻿using EFCore_DataAccess.Data;
-using EFCore_Models.Models;
 using EFCore_Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +23,7 @@ namespace EFCore_Web.Controllers
 		public async Task<IActionResult> Upsert(int? id)
 		{
 			BookViewModel viewModel = new();
+			viewModel.Book = new();
 			if (id > 0)
 			{
 				viewModel.Book = await _dbContext.Books.FindAsync(id);
