@@ -1,4 +1,5 @@
 ﻿using EFCore_DataAccess.Data;
+using EFCore_Models.Models;
 using EFCore_Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,17 +33,22 @@ namespace EFCore_Web.Controllers
 				}
 			}
 
-			var publishers = await _dbContext.Publishers.ToListAsync();
-			var publisherList = new List<SelectListItem>();
-			foreach (var publisher in publishers)
+			//var publishers = await _dbContext.Publishers.ToListAsync();
+			//var publisherList = new List<SelectListItem>();
+			//foreach (var publisher in publishers)
+			//{
+			//	publisherList.Add(new SelectListItem()
+			//	{
+			//		Text = publisher.Name,
+			//		Value = Convert.ToString(publisher.Publisher_Id)
+			//	});
+			//}
+
+			viewModel.PublisherList = await _dbContext.Publishers.Select(p => new SelectListItem()
 			{
-				publisherList.Add(new SelectListItem()
-				{
-					Text = publisher.Name,
-					Value = Convert.ToString(publisher.Publisher_Id)
-				});
-			}
-			viewModel.PublisherList = publisherList;
+				Text = p.Name,
+				Value = Convert.ToString(p.Publisher_Id)
+			}).ToListAsync();
 			return View(viewModel);
 		}
 	}
