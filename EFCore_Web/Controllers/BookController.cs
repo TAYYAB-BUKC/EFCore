@@ -19,7 +19,8 @@ namespace EFCore_Web.Controllers
 			var list = await _dbContext.Books.ToListAsync();
 			foreach (var listItem in list)
 			{
-				listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
+				//listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
+				await _dbContext.Entry(listItem).Reference(b => b.Publisher).LoadAsync();
 			}
 			return View(list);
 		}
