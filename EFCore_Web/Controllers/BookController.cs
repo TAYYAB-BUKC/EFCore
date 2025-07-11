@@ -73,5 +73,21 @@ namespace EFCore_Web.Controllers
 			await _dbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
+
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (id > 0)
+			{
+				var book = await _dbContext.Books.FindAsync(id);
+				if (book is null)
+				{
+					return NotFound();
+				}
+				_dbContext.Books.Remove(book);
+				await _dbContext.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return BadRequest();
+		}
 	}
 }
