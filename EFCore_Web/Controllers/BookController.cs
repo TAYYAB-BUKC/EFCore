@@ -1,6 +1,7 @@
 ﻿using EFCore_DataAccess.Data;
 using EFCore_Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore_Web.Controllers
@@ -30,6 +31,18 @@ namespace EFCore_Web.Controllers
 					return NotFound();
 				}
 			}
+
+			var publishers = await _dbContext.Publishers.ToListAsync();
+			var publisherList = new List<SelectListItem>();
+			foreach (var publisher in publishers)
+			{
+				publisherList.Add(new SelectListItem()
+				{
+					Text = publisher.Name,
+					Value = Convert.ToString(publisher.Publisher_Id)
+				});
+			}
+			viewModel.PublisherList = publisherList;
 			return View(viewModel);
 		}
 	}
