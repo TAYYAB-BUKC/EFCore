@@ -238,5 +238,11 @@ namespace EFCore_Web.Controllers
 
 			return NotFound();
 		}
+
+		public void ExecuteView()
+		{
+			var bookView = _dbContext.BookView.ToList();
+			var filteredBooks = bookView.Where(b => b.Price > 50).ToList();
+		}
 	}
 }
