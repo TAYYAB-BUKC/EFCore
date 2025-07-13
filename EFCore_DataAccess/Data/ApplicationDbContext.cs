@@ -35,6 +35,8 @@ namespace EFCore_DataAccess.Data
 
 		public DbSet<Fluent_BookAuthorMapping> Fluent_BookAuthorMappings { get; set; }
 
+		public DbSet<ViewBook> BookView { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//optionsBuilder.UseSqlServer("Server=DESKTOP-MTIIACB\\SQLEXPRESS;Database=EFCore;TrustServerCertificate=True;Trusted_Connection=True;")
@@ -116,6 +118,8 @@ namespace EFCore_DataAccess.Data
 			modelBuilder.ApplyConfiguration(new FluentBookDetailConfiguration());
 			modelBuilder.ApplyConfiguration(new FluentPublisherConfiguration());
 			modelBuilder.ApplyConfiguration(new FluentBookAuthorMappingConfiguration());
+
+			modelBuilder.Entity<ViewBook>().HasNoKey().ToView("GetBookDetails");
 		}
 	}
 }
