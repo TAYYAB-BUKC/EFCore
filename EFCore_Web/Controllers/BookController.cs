@@ -94,5 +94,21 @@ namespace EFCore_Web.Controllers
 			}
 			return BadRequest();
 		}
+
+		public async Task<IActionResult> Details(int id)
+		{
+			BookViewModel viewModel = new();
+			viewModel.Book = new();
+			if (id > 0)
+			{
+				viewModel.Book = await _dbContext.Books.FindAsync(id);
+				if (viewModel.Book is null)
+				{
+					return NotFound();
+				}
+				return View(viewModel);
+			}
+			return NotFound();
+		}
 	}
 }
