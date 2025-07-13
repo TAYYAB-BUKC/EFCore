@@ -1,4 +1,5 @@
 ﻿using EFCore_DataAccess.Data;
+using EFCore_Models.Models;
 using EFCore_Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -97,39 +98,45 @@ namespace EFCore_Web.Controllers
 
 		public async Task<IActionResult> Details(int id)
 		{
-			BookViewModel viewModel = new();
-			viewModel.Book = new();
-			viewModel.Book.Details = new();
+			BookDetail bookDetail = new();
+
 			if (id > 0)
 			{
-				viewModel.Book = await _dbContext.Books.FindAsync(id);
-				if (viewModel.Book is null)
+				bookDetail = await _dbContext.BookDetails.FirstOrDefaultAsync(bd => bd.Book_Id == id);
+				if(bookDetail is null)
+				{
+					bookDetail = new();
+				}
+				bookDetail.Book = await _dbContext.Books.Include("Publisher").FirstOrDefaultAsync(b => b.IDBook == id);
+				if (bookDetail.Book is null)
 				{
 					return NotFound();
 				}
-				return View(viewModel);
+				return View(bookDetail);
 			}
 			return NotFound();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Details(BookViewModel bookViewModel)
+		public async Task<IActionResult> Details(BookDetail bookDetailModel)
 		{
-			bookViewModel.Book.Details.Book_Id = bookViewModel.Book.IDBook;
-
-			if (bookViewModel.Book.Details.BookDetail_Id > 0)
+			if (!ModelState.IsValid)
 			{
-				_dbContext.BookDetails.Update(bookViewModel.Book.Details);
+				return View(bookDetailModel);
+			}
+
+			if (bookDetailModel.BookDetail_Id > 0)
+			{
+				_dbContext.BookDetails.Update(bookDetailModel);
 			}
 			else
 			{
-				await _dbContext.BookDetails.AddAsync(bookViewModel.Book.Details);
+				await _dbContext.BookDetails.AddAsync(bookDetailModel);
 			}
 
 			await _dbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
-
 	}
 }

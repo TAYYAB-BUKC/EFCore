@@ -1,4 +1,4 @@
-﻿@model BookViewModel
+﻿@model BookDetail
 @{
     var title = "Create Book Details";
 }
@@ -6,8 +6,10 @@
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Book.IDBook" />
-        <input type="hidden" asp-for="Book.Details.BookDetail_Id" />
-        @if (Model.Book.Details is not null || Model.Book.Details?.BookDetail_Id > 0)
+        <input type="hidden" asp-for="Book.Publisher_Id" />
+        <input type="hidden" asp-for="BookDetail_Id" />
+        <input type="hidden" asp-for="Book.Title" />
+        @if (Model is not null || Model.BookDetail_Id > 0)
         {
             //edit
             title = "Edit Book Details";
@@ -26,35 +28,35 @@
             </div>
             <div class="form-group row py-2">
                 <div class="col-4">
-                    <label asp-for="Book.Details.NumberOfChapters"></label>
+                    <label asp-for="NumberOfChapters"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Book.Details.NumberOfChapters" class="form-control" />
-                    <span asp-validation-for="Book.Details.NumberOfChapters" class="text-danger"></span>
+                    <input asp-for="NumberOfChapters" class="form-control" />
+                    <span asp-validation-for="NumberOfChapters" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row py-2">
                 <div class="col-4">
-                    <label asp-for="Book.Details.NumberOfPages"></label>
+                    <label asp-for="NumberOfPages"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Book.Details.NumberOfPages" class="form-control" />
-                    <span asp-validation-for="Book.Details.NumberOfPages" class="text-danger"></span>
+                    <input asp-for="NumberOfPages" class="form-control" />
+                    <span asp-validation-for="NumberOfPages" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row py-2">
                 <div class="col-4">
-                    <label asp-for="Book.Details.Weight"></label>
+                    <label asp-for="Weight"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Book.Details.Weight" class="form-control" />
-                    <span asp-validation-for="Book.Details.Weight" class="text-danger"></span>
+                    <input asp-for="Weight" class="form-control" />
+                    <span asp-validation-for="Weight" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group row py-2">
                 <div class="col-4 offset-4">
-                    @if (Model.Book.Details is not null || Model.Book.Details?.BookDetail_Id > 0)
+                    @if (Model is not null || Model.BookDetail_Id > 0)
                     {
                         <button type="submit" class="btn btn-primary form-control">Update</button>
                     }
