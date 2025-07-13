@@ -163,5 +163,14 @@ namespace EFCore_Web.Controllers
 
 			var bookCount2 = _dbContext.Books.Count();
 		}
+
+		public void IEnumerableVsIQueryable()
+		{
+			IEnumerable<Book> enumerableBooks = _dbContext.Books;
+			var filteredBooks = enumerableBooks.Where(b => b.Price > 50).ToList();
+
+			IQueryable<Book> queryableBooks = _dbContext.Books;
+			var filteredBooks1 = queryableBooks.Where(b => b.Price > 50).ToList();
+		}
 	}
 }
