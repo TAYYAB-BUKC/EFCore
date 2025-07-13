@@ -17,12 +17,12 @@ namespace EFCore_Web.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var list = await _dbContext.Books.ToListAsync();
-			foreach (var listItem in list)
-			{
-				//listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
-				await _dbContext.Entry(listItem).Reference(b => b.Publisher).LoadAsync();
-			}
+			var list = await _dbContext.Books.Include(b => b.Publisher).ToListAsync();
+			//foreach (var listItem in list)
+			//{
+			//	//listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
+			//	await _dbContext.Entry(listItem).Reference(b => b.Publisher).LoadAsync();
+			//}
 			return View(list);
 		}
 
