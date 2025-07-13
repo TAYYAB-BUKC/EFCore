@@ -99,6 +99,7 @@ namespace EFCore_Web.Controllers
 		{
 			BookViewModel viewModel = new();
 			viewModel.Book = new();
+			viewModel.Book.Details = new();
 			if (id > 0)
 			{
 				viewModel.Book = await _dbContext.Books.FindAsync(id);
