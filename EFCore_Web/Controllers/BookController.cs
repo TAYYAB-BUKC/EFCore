@@ -213,5 +213,20 @@ namespace EFCore_Web.Controllers
 			}
 			return RedirectToAction(nameof(ManageAuthors), new { id = model.BookAuthorMapping.Book_Id });
 		}
+
+		[HttpPost]
+		//[ValidateAntiForgeryToken]
+		public async Task<IActionResult> RemoveAuthors(int authorId, BookAuthorViewModel model)
+		{
+			var mapping = await _dbContext.BookAuthorMappings.Where(map => map.Book_Id == model.Book.IDBook && map.Author_Id == authorId).FirstOrDefaultAsync();
+			if (mapping is not null)
+			{
+				_dbContext.BookAuthorMappings.Remove(mapping);
+				await _dbContext.SaveChangesAsync();
+				return RedirectToAction(nameof(ManageAuthors), new { id = model.Book.IDBook });
+			}
+
+			return NotFound();
+		}
 	}
 }
