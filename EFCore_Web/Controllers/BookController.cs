@@ -201,5 +201,17 @@ namespace EFCore_Web.Controllers
 
 			return View(viewModel);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> ManageAuthors(BookAuthorViewModel model)
+		{
+			if(model.BookAuthorMapping.Author_Id > 0 && model.BookAuthorMapping.Book_Id > 0)
+			{
+				await _dbContext.BookAuthorMappings.AddAsync(model.BookAuthorMapping);
+				await _dbContext.SaveChangesAsync();
+			}
+			return RedirectToAction(nameof(ManageAuthors), new { id = model.BookAuthorMapping.Book_Id });
+		}
 	}
 }
