@@ -17,18 +17,22 @@ namespace EFCore_Web.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			//var list = await _dbContext.Books.Include(b => b.Publisher).ToListAsync();
-			var list = await _dbContext.Books.ToListAsync();
-			foreach (var listItem in list)
-			{
-				//listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
-				await _dbContext.Entry(listItem).Reference(b => b.Publisher).LoadAsync();
-				await _dbContext.Entry(listItem).Collection(b => b.BookAuthors).LoadAsync();
-				foreach(var author in listItem.BookAuthors)
-				{
-					await _dbContext.Entry(author).Reference(b => b.Author).LoadAsync();
-				}
-			}
+			var list = await _dbContext.Books
+							.Include(b => b.Publisher)
+							.Include(b => b.BookAuthors)
+							.ThenInclude(ba => ba.Author)
+							.ToListAsync();
+			//var list = await _dbContext.Books.ToListAsync();
+			//foreach (var listItem in list)
+			//{
+			//	//listItem.Publisher = await _dbContext.Publishers.FindAsync(listItem.Publisher_Id);
+			//	await _dbContext.Entry(listItem).Reference(b => b.Publisher).LoadAsync();
+			//	await _dbContext.Entry(listItem).Collection(b => b.BookAuthors).LoadAsync();
+			//	foreach(var author in listItem.BookAuthors)
+			//	{
+			//		await _dbContext.Entry(author).Reference(b => b.Author).LoadAsync();
+			//	}
+			//}
 			return View(list);
 		}
 
