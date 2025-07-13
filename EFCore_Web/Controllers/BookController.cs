@@ -111,5 +111,25 @@ namespace EFCore_Web.Controllers
 			}
 			return NotFound();
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Details(BookViewModel bookViewModel)
+		{
+			bookViewModel.Book.Details.Book_Id = bookViewModel.Book.IDBook;
+
+			if (bookViewModel.Book.Details.BookDetail_Id > 0)
+			{
+				_dbContext.BookDetails.Update(bookViewModel.Book.Details);
+			}
+			else
+			{
+				await _dbContext.BookDetails.AddAsync(bookViewModel.Book.Details);
+			}
+
+			await _dbContext.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
 	}
 }
