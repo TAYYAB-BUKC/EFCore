@@ -138,5 +138,30 @@ namespace EFCore_Web.Controllers
 			await _dbContext.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
+
+		public void PlayGround()
+		{
+			var bookTemp = _dbContext.Books.FirstOrDefault();
+			bookTemp.Price = 100;
+
+			var bookCollection = _dbContext.Books;
+			decimal totalPrice = 0;
+
+			foreach (var book in bookCollection)
+			{
+				totalPrice += book.Price;
+			}
+
+			var bookList = _dbContext.Books.ToList();
+			foreach (var book in bookList)
+			{
+				totalPrice += book.Price;
+			}
+
+			var bookCollection2 = _dbContext.Books;
+			var bookCount1 = bookCollection2.Count();
+
+			var bookCount2 = _dbContext.Books.Count();
+		}
 	}
 }
