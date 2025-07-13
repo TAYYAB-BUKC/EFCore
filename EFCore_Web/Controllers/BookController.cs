@@ -172,5 +172,34 @@ namespace EFCore_Web.Controllers
 			IQueryable<Book> queryableBooks = _dbContext.Books;
 			var filteredBooks1 = queryableBooks.Where(b => b.Price > 50).ToList();
 		}
+
+		public async Task<IActionResult> ManageAuthors(int id)
+		{
+			BookAuthorViewModel viewModel = new()
+			{
+				Book = await _dbContext.Books.FindAsync(id),
+				//AuthorList = await _dbContext.Authors.Select(a => new SelectListItem()
+				//{
+				//	Text = a.FullName,
+				//	Value = Convert.ToString(a.Author_Id)
+				//}).ToListAsync(),
+				BookAuthorList = await _dbContext.BookAuthorMappings.Include(b => b.Book).Include(b => b.Author).Where(m => m.Book_Id == id).ToListAsync(),
+				BookAuthorMapping = new BookAuthorMapping()
+				{
+					Book_Id = id
+				}
+			};
+
+			List<int> tempListOfAssignedAuthors = viewModel.BookAuthorList.Select(ba => ba.Author_Id).ToList();
+
+			var tempAuthorList = await _dbContext.Authors.Where(a => !tempListOfAssignedAuthors.Contains(a.Author_Id)).ToListAsync();
+			viewModel.AuthorList = tempAuthorList.Select(a => new SelectListItem()
+			{
+				Text = a.FullName,
+				Value = Convert.ToString(a.Author_Id)
+			}).ToList();
+
+			return View(viewModel);
+		}
 	}
 }
