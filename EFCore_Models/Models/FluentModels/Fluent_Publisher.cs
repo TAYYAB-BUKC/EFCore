@@ -6,6 +6,6 @@
 		public string Name { get; set; }
 		public string Location { get; set; }
 
-		public IEnumerable<Fluent_Book> Books { get; set; }
+		public virtual IEnumerable<Fluent_Book> Books { get; set; }
 	}
 }

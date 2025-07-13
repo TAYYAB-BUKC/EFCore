@@ -8,11 +8,11 @@
 		public decimal Price { get; set; }
 		public string PriceRange { get; set; }
 
-		public Fluent_BookDetail Details { get; set; }
+		public virtual Fluent_BookDetail Details { get; set; }
 
 		public int Publisher_Id { get; set; }
-		public Fluent_Publisher Publisher { get; set; }
+		public virtual Fluent_Publisher Publisher { get; set; }
 
-		public List<Fluent_BookAuthorMapping> BookAuthors { get; set; }
+		public virtual List<Fluent_BookAuthorMapping> BookAuthors { get; set; }
 	}
 }

@@ -17,11 +17,13 @@ namespace EFCore_Web.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var list = await _dbContext.Books
-							.Include(b => b.Publisher)
-							.Include(b => b.BookAuthors)
-							.ThenInclude(ba => ba.Author)
-							.ToListAsync();
+			IQueryable<Book> list = _dbContext.Books
+									.Include(b => b.Publisher)
+									.Include(b => b.BookAuthors)
+									.ThenInclude(ba => ba.Author);
+
+			var book = await list.Where(b => b.IDBook == 1).ToListAsync();
+
 			//var list = await _dbContext.Books.ToListAsync();
 			//foreach (var listItem in list)
 			//{
