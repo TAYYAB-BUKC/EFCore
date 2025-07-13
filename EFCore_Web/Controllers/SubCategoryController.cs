@@ -15,7 +15,7 @@ namespace EFCore_Web.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var list = await _applicationDbContext.SubCategories.ToListAsync();
+			var list = await _applicationDbContext.SubCategories.AsNoTracking().ToListAsync();
 			return View(list);
 		}
 
