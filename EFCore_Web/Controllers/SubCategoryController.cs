@@ -47,11 +47,11 @@ namespace EFCore_Web.Controllers
 
 			if (subCategory.SubCategory_Id > 0)
 			{
-				await _applicationDbContext.SubCategories.AddAsync(subCategory);
+				_applicationDbContext.Update(subCategory);
 			}
 			else
 			{
-				_applicationDbContext.Update(subCategory);
+				await _applicationDbContext.SubCategories.AddAsync(subCategory);
 			}
 
 			await _applicationDbContext.SaveChangesAsync();
