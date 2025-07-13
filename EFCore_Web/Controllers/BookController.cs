@@ -244,5 +244,17 @@ namespace EFCore_Web.Controllers
 			var bookView = _dbContext.BookView.ToList();
 			var filteredBooks = bookView.Where(b => b.Price > 50).ToList();
 		}
+
+		public void ExecuteQueries()
+		{
+			var books = _dbContext.Books.FromSqlRaw("SELECT * FROM TBL_BOOKS").ToList();
+			var bookId = 3;
+			var book = _dbContext.Books.FromSqlRaw("SELECT * FROM TBL_BOOKS WHERE IDBOOK = {0}", bookId).ToList();
+
+			// will throw exception as query returns the subset of DbSet
+			//var book1 = _dbContext.Books.FromSqlRaw("SELECT IDBook, Book_ISBN, PRICE FROM TBL_BOOKS WHERE IDBOOK = {0}", bookId).ToList();
+
+			book = _dbContext.Books.FromSqlInterpolated($"SELECT * FROM TBL_BOOKS WHERE IDBOOK = {bookId}").ToList();
+		}
 	}
 }
