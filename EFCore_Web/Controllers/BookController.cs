@@ -256,5 +256,11 @@ namespace EFCore_Web.Controllers
 
 			book = _dbContext.Books.FromSqlInterpolated($"SELECT * FROM TBL_BOOKS WHERE IDBOOK = {bookId}").ToList();
 		}
+
+		public void ExecuteStoredProcedure()
+		{
+			var bookId = 3;
+			var books = _dbContext.Books.FromSqlInterpolated($"EXEC GetBookById {bookId}").ToList();
+		}
 	}
 }
