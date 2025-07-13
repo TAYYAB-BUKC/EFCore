@@ -13,6 +13,6 @@ namespace EFCore_Models.Models
 		public string Weight { get; set; }
 		[ForeignKey("Book")]
 		public int Book_Id { get; set; }
-		public virtual Book Book { get; set; }
+		public Book Book { get; set; }
 	}
 }

@@ -17,12 +17,12 @@ namespace EFCore_Models.Models
 		public decimal Price { get; set; }
 		[NotMapped]
 		public string PriceRange { get; set; }
-		public virtual BookDetail Details { get; set; }
+		public BookDetail Details { get; set; }
 
 		[ForeignKey(nameof(Publisher))]
 		public int Publisher_Id { get; set; }
-		public virtual Publisher Publisher { get; set; }
+		public Publisher Publisher { get; set; }
 
-		public virtual List<BookAuthorMapping> BookAuthors { get; set; }
+		public List<BookAuthorMapping> BookAuthors { get; set; }
 	}
 }
