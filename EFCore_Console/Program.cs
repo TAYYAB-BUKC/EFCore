@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EFCore_DataAccess.Data;
-using EFCore_DataAccess.Migrations;
 using EFCore_Models.Models;
 using Microsoft.EntityFrameworkCore;
 
